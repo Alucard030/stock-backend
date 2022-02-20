@@ -1,22 +1,19 @@
 const mongoose =require('mongoose');
 
-const productSchema= mongoose.Schema({
-    productName:{
+const stockSchema= mongoose.Schema({
+    stockName:{
         type:String,
         required:true
     },
-    productDesc:{
+    open:{
         type:String,
         required: true,
     },
-    price:{
-        type: Number,
-        default:0
-    },
-    contact:{
-        type:String
+    close:{
+        type:String,
+        required:true
     }
     
 })
 
-module.exports= mongoose.model('ProductCollection',productSchema);
+module.exports= mongoose.model('stockcollections',stockSchema);

@@ -1,27 +1,47 @@
-const productCollection=require('../Models/model');
+const stockCollection=require('../Models/model');
 
-const getProducts= async(req,res,next)=>{
+const getStocks= async(req,res,next)=>{
     try {
-        products = await productCollection.find({});
-        return res.json({data : products});
+        stocks = await stockCollection.find({});
+        return res.json({data : stocks});
     } catch (err){
         return res.status(400).json({err});
     }
 }
 
-const setProducts= async (req,res,next)=> {
+const setStocks= async (req,res,next)=> {
     try {
-        product= new productCollection(req.body)
-        await product.save();
-        return res.json({data: product});
+        stock= new stockCollection(req.body);
+        await stock.save();
+        return res.json({data: stock});
     } catch(err){
         return res.status(400).json({err});
     }
 
 }
 
+const updateStocks= async(req,res,next)=>{
+    try {
+        stocks = await stockCollection.updateOne({_id: req.body._id},{$set:req.body});
+        return res.json({data : stocks});
+    } catch (err){
+        return res.status(400).json({err});
+    }
+}
+
+const removeStocks= async(req,res,next)=>{
+    try {
+        stocks = await stockCollection.findOneAndRemove(req.body);
+        return res.json({data : stocks});
+    } catch (err) {
+        return res.status(400).json({err});
+    }
+}
+
 module.exports={
-    getProducts,
-    setProducts,
+    getStocks,
+    setStocks ,
+    updateStocks,
+    removeStocks
 }
 
